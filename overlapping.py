@@ -1,5 +1,4 @@
 from shapely.geometry import *
-import time
 from shapely.geometry import Polygon
 import itertools
 from tkinter import *
@@ -8,12 +7,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkinter import scrolledtext as st
 import fiona
-
 import pandas as pd
-
-OUTPUT_DIR = "/data/newclip"
-updatetime = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-
 
 class MyGUI:
     first_shp = ''
@@ -162,8 +156,6 @@ class MyGUI:
         delect_overlap_area = []
         num_count = 0
 
-
-        # try:
         for i in parcel_dic:
             check_polygon = Polygon(i['geometry']['coordinates'][0]).buffer(0.01)
             overlap_polygon_num = [x for x in range(len(overlap_area)) if check_polygon.contains(overlap_area[x])
