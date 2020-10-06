@@ -116,6 +116,10 @@ class MyGUI:
                                 # print(intersection_area)
                                 print(count_num)
                                 count_num += 1
+
+                            elif mapping(intersection_area)["type"] == "MultiPolygon":
+                                overlap_area.append(intersection_area)
+
                             else:
                                 pass
                         else:
@@ -160,7 +164,7 @@ class MyGUI:
             check_polygon = Polygon(i['geometry']['coordinates'][0]).buffer(0.01)
             overlap_polygon_num = [x for x in range(len(overlap_area)) if check_polygon.contains(overlap_area[x])
                                    if i['properties']["PARCEL_ID"] != "XXXXX" and i['properties']["PARCEL_ID"] != "WHITESP"
-                                   if mapping(overlap_area[x])["type"] == "Polygon"]
+                                   if mapping(overlap_area[x])["type"] == "Polygon" or mapping(overlap_area[x])["type"] == "MultiPolygon"]
             try:
                 for h in overlap_polygon_num:
                     clipped_parcel = check_polygon.difference(overlap_area[h].buffer(0.1))
